@@ -5,6 +5,9 @@ function TaskSection({ onProgressChange }) {
 const [subject, setSubject] = useState("Mathematics");
 const [dueDate, setDueDate] = useState("");
 const [priority, setPriority] = useState("Medium");
+const [filterSubject, setFilterSubject] = useState("All");
+const [filterPriority, setFilterPriority] = useState("All");
+const [search, setSearch] = useState("");
 
  const [tasks, setTasks] = useState(() => {
   const savedTasks = localStorage.getItem("tasks");
@@ -82,9 +85,45 @@ const [priority, setPriority] = useState("Medium");
 
   return (
     <div className="task-box">
-      <h3>Today's Tasks</h3>
+      <h2>Today's Tasks</h2>
+      <div className="search-box">
+  <input
+    type="text"
+    placeholder="🔍 Search tasks..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
+</div>
 
-      <div className="task-input">
+<div className="filters"></div>
+
+<div className="filters">
+
+  <select
+    value={filterSubject}
+    onChange={(e) => setFilterSubject(e.target.value)}
+  >
+    <option>All</option>
+    <option>Mathematics</option>
+    <option>Physics</option>
+    <option>Chemistry</option>
+    <option>English</option>
+    <option>Computer Science</option>
+  </select>
+
+  <select
+    value={filterPriority}
+    onChange={(e) => setFilterPriority(e.target.value)}
+  >
+    <option>All</option>
+    <option>High</option>
+    <option>Medium</option>
+    <option>Low</option>
+  </select>
+
+</div>
+
+<div className="task-input">
         <select
   value={subject}
   onChange={(e) => setSubject(e.target.value)}
@@ -127,7 +166,22 @@ const [priority, setPriority] = useState("Medium");
   </div>
 ) : (
   <ul>
-    {tasks.map((item, index) => (
+    {tasks
+  .filter((item) => {
+    const subjectMatch =
+      filterSubject === "All" || item.subject === filterSubject;
+
+    const priorityMatch =
+      filterPriority === "All" || item.priority === filterPriority;
+
+    const searchMatch =
+      item.subject.toLowerCase().includes(search.toLowerCase()) ||
+      item.task.toLowerCase().includes(search.toLowerCase()) ||
+      item.priority.toLowerCase().includes(search.toLowerCase());
+
+    return subjectMatch && priorityMatch && searchMatch;
+  })
+  .map((item, index) => (
       <li key={index} className="task-item">
         <div className="task-left">
           <input

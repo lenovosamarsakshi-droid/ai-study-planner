@@ -238,3 +238,14 @@ h1{
   background: #dcfce7;
   color: #16a34a;
 }
+.search-box {
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+}
