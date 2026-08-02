@@ -182,3 +182,153 @@
     border-right-color: var(--border);
   }
 }
+.react-calendar {
+  color: #1f2937;
+}
+
+.react-calendar__month-view__days__day {
+  color: #1f2937;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #9ca3af;
+}
+.selected-date-card{
+  margin-top:25px;
+  padding:20px;
+  border-radius:15px;
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+}
+
+.selected-date-card h3{
+  margin-bottom:15px;
+}
+
+.selected-date-card h4{
+  margin-top:15px;
+  margin-bottom:8px;
+}
+.selected-date-card ul{
+  list-style: disc;
+  list-style-position: inside;
+  margin: 8px 0;
+  padding: 0;
+}
+
+.selected-date-card li{
+  margin-bottom: 6px;
+}
+.upcoming-card {
+  background: #f8fbff;
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 25px;
+
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.upcoming-card h3 {
+  margin-bottom: 15px;
+  color: #2563eb;
+}
+
+.upcoming-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.upcoming-item:last-child {
+  border-bottom: none;
+}
+
+.upcoming-item strong {
+  font-size: 16px;
+}
+
+.upcoming-item p {
+  color: #6b7280;
+  font-size: 14px;
+  margin: 0;
+}
+.upcoming-item p {
+  display: inline-block;
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #eef2ff;
+  color: #2563eb;
+}
+.ai-response{
+    background:#ffffff;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    padding:22px;
+    margin-top:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,.06);
+}
+
+.ai-response p{
+    margin:8px 0;
+    line-height:1.6;
+}
+
+.ai-heading{
+    display: block;
+    width: 200px;
+    margin: 16px 0 10px;
+}
+.ai-subtitle{
+    color:#6b7280;
+    font-size:14px;
+    margin:4px 0 16px;
+}
+.ai-card{
+    max-width:900px;
+}
+.summary-heading{
+    color:#2563eb;
+    background:#dbeafe;
+    padding:8px 14px;
+    border-radius:10px;
+    display:inline-block;
+    font-size:18px;
+    margin:8px 0;
+}
+
+.priority-heading{
+    color:#b45309;
+    background:#fef3c7;
+    padding:8px 14px;
+    border-radius:10px;
+    display:inline-block;
+    font-size:18px;
+    margin:8px 0;
+}
+
+.plan-heading{
+    color:#15803d;
+    background:#dcfce7;
+    padding:8px 14px;
+    border-radius:10px;
+    display:inline-block;
+    font-size:18px;
+    margin:8px 0;
+}
+
+.motivation-heading{
+    color:#7c3aed;
+    background:#ede9fe;
+    padding:8px 14px;
+    border-radius:10px;
+    display:inline-block;
+    font-size:18px;
+    margin:8px 0;
+}

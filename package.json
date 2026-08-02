@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/genai": "^2.15.0",
+    "groq-sdk": "^1.5.0",
     "react": "^19.2.8",
     "react-calendar": "^6.0.1",
     "react-dom": "^19.2.8"

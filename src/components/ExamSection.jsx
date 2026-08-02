@@ -3,6 +3,7 @@ import { getDaysLeft } from "../utils/dateUtils";
 
 function ExamSection({
   onExamCountChange,
+  onExamsChange,
 }) {
 
   const [examSubject, setExamSubject] = useState("");
@@ -74,6 +75,15 @@ useEffect(() => {
     "exams",
     JSON.stringify(exams)
   );
+
+  if (onExamCountChange) {
+    onExamCountChange(exams.length);
+  }
+
+  if (onExamsChange) {
+    onExamsChange(exams);
+  }
+
 }, [exams]);
    return (
   <div className="task-box">

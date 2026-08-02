@@ -4,6 +4,7 @@ function TaskSection({
   onProgressChange,
   onSubjectChange,
   onTaskCountChange,
+  onTasksChange,
 }) {
   const [task, setTask] = useState("");
 const [subject, setSubject] = useState("Mathematics");
@@ -64,6 +65,9 @@ const [editTask, setEditTask] = useState({
     [...new Set(tasks.map(task => task.subject))];
 
   onSubjectChange(uniqueSubjects.length);
+  if (onTasksChange) {
+  onTasksChange(tasks);
+}
 
   localStorage.setItem(
     "tasks",
