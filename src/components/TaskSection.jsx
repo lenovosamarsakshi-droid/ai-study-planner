@@ -4,6 +4,7 @@ function TaskSection({ onProgressChange }) {
   const [task, setTask] = useState("");
 const [subject, setSubject] = useState("Mathematics");
 const [dueDate, setDueDate] = useState("");
+const [priority, setPriority] = useState("Medium");
 
  const [tasks, setTasks] = useState(() => {
   const savedTasks = localStorage.getItem("tasks");
@@ -12,11 +13,29 @@ const [dueDate, setDueDate] = useState("");
     return JSON.parse(savedTasks);
   }
 
-  return [
-    { text: "📖 Complete Algebra Worksheet", completed: false },
-    { text: "🧪 Revise Chemistry Chapter 3", completed: false },
-    { text: "📘 Read English Literature", completed: false },
-  ];
+ return [
+  {
+    subject: "Mathematics",
+    task: "Complete Algebra Worksheet",
+    dueDate: "2026-08-10",
+    priority: "High",
+    completed: false,
+  },
+  {
+    subject: "Chemistry",
+    task: "Revise Chemistry Chapter 3",
+    dueDate: "2026-08-12",
+    priority: "Medium",
+    completed: false,
+  },
+  {
+    subject: "English",
+    task: "Read English Literature",
+    dueDate: "2026-08-15",
+    priority: "Low",
+    completed: false,
+  },
+];
 });
 
   useEffect(() => {
@@ -30,13 +49,16 @@ const [dueDate, setDueDate] = useState("");
   function addTask() {
     if (task.trim() === "") return;
 
-    setTasks([
-      ...tasks,
-      {
-       text: `${subject} - ${task} | 📅 ${dueDate}`,
-        completed: false,
-      },
-    ]);
+   setTasks([
+  ...tasks,
+  {
+    subject: subject,
+    task: task,
+    dueDate: dueDate,
+    priority: priority,
+    completed: false,
+  },
+]);
 
     setTask("");
   }
@@ -84,6 +106,14 @@ const [dueDate, setDueDate] = useState("");
   value={dueDate}
   onChange={(e) => setDueDate(e.target.value)}
 />
+<select
+  value={priority}
+  onChange={(e) => setPriority(e.target.value)}
+>
+  <option>High</option>
+  <option>Medium</option>
+  <option>Low</option>
+</select>
 
         <button onClick={addTask}>
           Add Task
@@ -107,10 +137,17 @@ const [dueDate, setDueDate] = useState("");
           />
 
           <span
-            className={item.completed ? "completed-task" : ""}
-          >
-            {item.text}
-          </span>
+  className={item.completed ? "completed-task" : ""}
+>
+  <strong>{item.subject}</strong> - {item.task}
+  <br />
+ <div className="task-details">
+  <span>📅 {item.dueDate}</span>
+  <span className={`priority ${item.priority.toLowerCase()}`}>
+    {item.priority}
+  </span>
+</div>
+</span>
         </div>
 
         <button
