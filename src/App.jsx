@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import DashboardCards from "./components/DashboardCards";
 import ProgressSection from "./components/ProgressSection";
 import TaskSection from "./components/TaskSection";
+import ExamSection from "./components/ExamSection";
 
 function App() {
   const [completedTasks, setCompletedTasks] = useState(0);
@@ -27,6 +28,7 @@ function App() {
       <TaskSection
         onProgressChange={handleProgressChange}
       />
+      <ExamSection />
     </div>
   );
 }
