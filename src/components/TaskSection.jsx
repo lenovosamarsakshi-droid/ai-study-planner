@@ -43,7 +43,14 @@ const [search, setSearch] = useState("");
   },
 ];
 });
+const [editingIndex, setEditingIndex] = useState(null);
 
+const [editTask, setEditTask] = useState({
+  subject: "",
+  task: "",
+  dueDate: "",
+  priority: "Medium",
+});
   useEffect(() => {
 
   const completed =
@@ -87,6 +94,26 @@ const [search, setSearch] = useState("");
 
     setTasks(updatedTasks);
   }
+  function startEditing(index) {
+  setEditingIndex(index);
+  setEditTask({ ...tasks[index] });
+}
+function saveEditedTask() {
+  const updatedTasks = [...tasks];
+
+  updatedTasks[editingIndex] = editTask;
+
+  setTasks(updatedTasks);
+
+  setEditingIndex(null);
+
+  setEditTask({
+    subject: "",
+    task: "",
+    dueDate: "",
+    priority: "Medium",
+  });
+}
 
   function toggleTask(index) {
     const updatedTasks = [...tasks];
@@ -146,8 +173,12 @@ const [search, setSearch] = useState("");
 <div className="task-input">
 
   <select
-    value={subject}
-    onChange={(e) => setSubject(e.target.value)}
+    value={editingIndex === null ? subject : editTask.subject}
+onChange={(e) =>
+  editingIndex === null
+    ? setSubject(e.target.value)
+    : setEditTask({ ...editTask, subject: e.target.value })
+}
   >
     <option>Mathematics</option>
     <option>Physics</option>
@@ -155,32 +186,48 @@ const [search, setSearch] = useState("");
     <option>English</option>
     <option>Computer Science</option>
   </select>
-
-  <input
-    type="text"
-    placeholder="Enter a new task..."
-    value={task}
-    onChange={(e) => setTask(e.target.value)}
-  />
+<input
+  type="text"
+  value={editingIndex === null ? task : editTask.task}
+  onChange={(e) =>
+    editingIndex === null
+      ? setTask(e.target.value)
+      : setEditTask({ ...editTask, task: e.target.value })
+  }
+/>
 
   <input
     type="date"
-    value={dueDate}
-    onChange={(e) => setDueDate(e.target.value)}
+    value={editingIndex === null ? dueDate : editTask.dueDate}
+onChange={(e) =>
+  editingIndex === null
+    ? setDueDate(e.target.value)
+    : setEditTask({ ...editTask, dueDate: e.target.value })
+}
   />
 
   <select
-    value={priority}
-    onChange={(e) => setPriority(e.target.value)}
+    value={editingIndex === null ? priority : editTask.priority}
+onChange={(e) =>
+  editingIndex === null
+    ? setPriority(e.target.value)
+    : setEditTask({ ...editTask, priority: e.target.value })
+}
   >
     <option>High</option>
     <option>Medium</option>
     <option>Low</option>
   </select>
 
+ {editingIndex === null ? (
   <button onClick={addTask}>
     Add Task
   </button>
+) : (
+  <button onClick={saveEditedTask}>
+    Save Changes
+  </button>
+)}
 
 </div>
 
@@ -243,12 +290,21 @@ const [search, setSearch] = useState("");
 </div>
         </div>
 
-        <button
-          className="delete-btn"
-          onClick={() => deleteTask(index)}
-        >
-          🗑️
-        </button>
+        <div className="task-actions">
+  <button
+    className="edit-btn"
+    onClick={() => startEditing(index)}
+  >
+    ✏️
+  </button>
+
+  <button
+    className="delete-btn"
+    onClick={() => deleteTask(index)}
+  >
+    🗑
+  </button>
+</div>
       </li>
     ))}
   </ul>

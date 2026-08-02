@@ -137,7 +137,7 @@ progress{
 .task-item{
   display:flex;
   justify-content:space-between;
-  align-items:flex-start;
+  align-items:center;
   background:#f8faff;
   padding:22px;
   border-radius:16px;
@@ -187,7 +187,22 @@ button:hover{
 .delete-btn:hover{
   background:#dc2626;
 }
+.task-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
 
+.edit-btn{
+  width:auto;
+  margin:0;
+  padding:10px 14px;
+  background:#facc15;
+}
+
+.edit-btn:hover{
+  background:#eab308;
+}
 /* ---------- RESPONSIVE ---------- */
 
 @media (max-width:700px){
@@ -366,9 +381,8 @@ h1{
     border:1px solid #e5e7eb;
 }
 
-.exam-form input[type="text"]{
-    flex:1;
-    min-width:220px;
+.exam-card input[type="text"]{
+    width: 320px;
 }
 
 .exam-form input[type="date"]{
@@ -405,4 +419,24 @@ h1{
 .countdown-badge.expired{
     background:#e5e7eb;
     color:#374151;
+}
+.task-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.edit-btn {
+  background: #facc15;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.edit-btn:hover {
+  background: #eab308;
 }

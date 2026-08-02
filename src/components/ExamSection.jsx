@@ -9,6 +9,43 @@ function ExamSection() {
   const [exams, setExams] = useState(() => {
   return JSON.parse(localStorage.getItem("exams")) || [];
 });
+const [editingIndex, setEditingIndex] = useState(null);
+
+const [editExam, setEditExam] = useState({
+  subject: "",
+  date: "",
+});
+function deleteExam(indexToDelete) {
+  const updatedExams = exams.filter(
+    (_, index) => index !== indexToDelete
+  );
+
+  setExams(updatedExams);
+}
+function startEditing(index) {
+  setEditingIndex(index);
+  setEditExam({ ...exams[index] });
+}
+function saveEditedExam() {
+  if (
+    editExam.subject.trim() === "" ||
+    editExam.date === ""
+  )
+    return;
+
+  const updatedExams = [...exams];
+
+  updatedExams[editingIndex] = editExam;
+
+  setExams(updatedExams);
+
+  setEditingIndex(null);
+
+  setEditExam({
+    subject: "",
+    date: "",
+  });
+}
   function addExam() {
 
     if (examSubject.trim() === "" || examDate === "") return;
@@ -37,21 +74,51 @@ useEffect(() => {
 
 <div className="exam-form">
       <input
-        type="text"
-        placeholder="Exam Subject"
-        value={examSubject}
-        onChange={(e) => setExamSubject(e.target.value)}
-      />
+  type="text"
+  placeholder="Exam Subject"
+  value={
+    editingIndex !== null
+      ? editExam.subject
+      : examSubject
+  }
+  onChange={(e) =>
+    editingIndex !== null
+      ? setEditExam({
+          ...editExam,
+          subject: e.target.value,
+        })
+      : setExamSubject(e.target.value)
+  }
+/>
 
       <input
-        type="date"
-        value={examDate}
-        onChange={(e) => setExamDate(e.target.value)}
-      />
+  type="date"
+  value={
+    editingIndex !== null
+      ? editExam.date
+      : examDate
+  }
+  onChange={(e) =>
+    editingIndex !== null
+      ? setEditExam({
+          ...editExam,
+          date: e.target.value,
+        })
+      : setExamDate(e.target.value)
+  }
+/>
 
-      <button onClick={addExam}>
-        Add Exam
-      </button>
+      <button
+  onClick={
+    editingIndex !== null
+      ? saveEditedExam
+      : addExam
+  }
+>
+  {editingIndex !== null
+    ? "Save Changes"
+    : "Add Exam"}
+</button>
     </div>
 
     {exams.map((exam, index) => (
@@ -82,14 +149,21 @@ useEffect(() => {
 </>
         </div>
 
-        <button
-          className="delete-btn"
-          onClick={() =>
-            setExams(exams.filter((_, i) => i !== index))
-          }
-        >
-          🗑
-        </button>
+        <div className="task-actions">
+  <button
+    className="edit-btn"
+    onClick={() => startEditing(index)}
+  >
+    ✏️
+  </button>
+
+  <button
+    className="delete-btn"
+    onClick={() => deleteExam(index)}
+  >
+    🗑
+  </button>
+</div>
 
       </div>
     ))}
