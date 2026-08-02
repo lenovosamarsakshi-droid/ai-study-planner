@@ -95,15 +95,46 @@ const [search, setSearch] = useState("");
   />
 </div>
 
-<div className="filters"></div>
-
 <div className="filters">
 
+  <div className="filter-group">
+    <label>📚 Subject</label>
+
+    <select
+      value={filterSubject}
+      onChange={(e) => setFilterSubject(e.target.value)}
+    >
+      <option value="All">All</option>
+      <option value="Mathematics">Mathematics</option>
+      <option value="Physics">Physics</option>
+      <option value="Chemistry">Chemistry</option>
+      <option value="English">English</option>
+      <option value="Computer Science">Computer Science</option>
+    </select>
+  </div>
+
+  <div className="filter-group">
+    <label>🎯 Priority</label>
+
+    <select
+      value={filterPriority}
+      onChange={(e) => setFilterPriority(e.target.value)}
+    >
+      <option value="All">All</option>
+      <option value="High">High</option>
+      <option value="Medium">Medium</option>
+      <option value="Low">Low</option>
+    </select>
+  </div>
+
+</div>
+
+<div className="task-input">
+
   <select
-    value={filterSubject}
-    onChange={(e) => setFilterSubject(e.target.value)}
+    value={subject}
+    onChange={(e) => setSubject(e.target.value)}
   >
-    <option>All</option>
     <option>Mathematics</option>
     <option>Physics</option>
     <option>Chemistry</option>
@@ -111,53 +142,33 @@ const [search, setSearch] = useState("");
     <option>Computer Science</option>
   </select>
 
+  <input
+    type="text"
+    placeholder="Enter a new task..."
+    value={task}
+    onChange={(e) => setTask(e.target.value)}
+  />
+
+  <input
+    type="date"
+    value={dueDate}
+    onChange={(e) => setDueDate(e.target.value)}
+  />
+
   <select
-    value={filterPriority}
-    onChange={(e) => setFilterPriority(e.target.value)}
+    value={priority}
+    onChange={(e) => setPriority(e.target.value)}
   >
-    <option>All</option>
     <option>High</option>
     <option>Medium</option>
     <option>Low</option>
   </select>
 
+  <button onClick={addTask}>
+    Add Task
+  </button>
+
 </div>
-
-<div className="task-input">
-        <select
-  value={subject}
-  onChange={(e) => setSubject(e.target.value)}
->
-  <option>Mathematics</option>
-  <option>Physics</option>
-  <option>Chemistry</option>
-  <option>English</option>
-  <option>Computer Science</option>
-</select>
-        <input
-          type="text"
-          placeholder="Enter a new task..."
-          value={task}
-          onChange={(e) => setTask(e.target.value)}
-        />
-        <input
-  type="date"
-  value={dueDate}
-  onChange={(e) => setDueDate(e.target.value)}
-/>
-<select
-  value={priority}
-  onChange={(e) => setPriority(e.target.value)}
->
-  <option>High</option>
-  <option>Medium</option>
-  <option>Low</option>
-</select>
-
-        <button onClick={addTask}>
-          Add Task
-        </button>
-      </div>
 
       {tasks.length === 0 ? (
   <div style={{ textAlign: "center", padding: "25px" }}>
@@ -190,18 +201,32 @@ const [search, setSearch] = useState("");
             onChange={() => toggleTask(index)}
           />
 
-          <span
-  className={item.completed ? "completed-task" : ""}
->
-  <strong>{item.subject}</strong> - {item.task}
-  <br />
- <div className="task-details">
-  <span>📅 {item.dueDate}</span>
-  <span className={`priority ${item.priority.toLowerCase()}`}>
-    {item.priority}
-  </span>
+          <div className={item.completed ? "completed-task" : ""}>
+
+  <h4 className="task-subject">
+  📚 {item.subject}
+</h4>
+
+ <p className="task-name">
+  📝 {item.task}
+</p>
+
+  <div className="task-details">
+    <span>
+      📅{" "}
+      {new Date(item.dueDate).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })}
+    </span>
+
+    <span className={`priority ${item.priority.toLowerCase()}`}>
+      {item.priority}
+    </span>
+  </div>
+
 </div>
-</span>
         </div>
 
         <button

@@ -137,11 +137,16 @@ progress{
 .task-item{
   display:flex;
   justify-content:space-between;
-  align-items:center;
+  align-items:flex-start;
   background:#f8faff;
-  padding:16px;
-  border-radius:12px;
-  margin-bottom:12px;
+  padding:22px;
+  border-radius:16px;
+  margin-bottom:18px;
+  transition:.25s ease;
+}
+.task-item:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 25px rgba(37,99,235,.08);
 }
 
 .task-left{
@@ -248,4 +253,79 @@ h1{
   border: 1px solid #ddd;
   border-radius: 10px;
   font-size: 15px;
+}
+.completed-task h4 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.completed-task p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.task-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.task-left input[type="checkbox"] {
+  margin-top: 8px;
+}
+.task-subject {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.task-name {
+  color: #374151;
+}
+.filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filters select {
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 15px;
+  min-width: 180px;
+}
+.filters {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  align-items: end;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.filter-group select {
+  width: 180px;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 15px;
+  background: white;
+}
+
+.filter-group select:focus {
+  outline: none;
+  border-color: #2563eb;
 }
