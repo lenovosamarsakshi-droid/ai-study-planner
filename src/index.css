@@ -329,23 +329,7 @@ h1{
   outline: none;
   border-color: #2563eb;
 }
-.exam-card{
-  margin-top:20px;
-  background:#f8faff;
-  border-radius:16px;
-  padding:20px;
-  border:1px solid #e5e7eb;
-}
 
-.exam-card h3{
-  margin:0 0 10px;
-  color:#2563eb;
-}
-
-.exam-card p{
-  color:#6b7280;
-  margin:0;
-}
 .exam-card {
   display: flex;
   justify-content: space-between;
@@ -367,4 +351,58 @@ h1{
 .exam-card p {
   margin: 0;
   color: #6b7280;
+}
+.exam-form{
+    display:flex;
+    gap:15px;
+    align-items:center;
+    flex-wrap:wrap;
+
+    margin-top:20px;
+    padding:20px;
+    border-radius:16px;
+
+    background:#f8faff;
+    border:1px solid #e5e7eb;
+}
+
+.exam-form input[type="text"]{
+    flex:1;
+    min-width:220px;
+}
+
+.exam-form input[type="date"]{
+    width:180px;
+}
+
+.exam-form button{
+    min-width:140px;
+}
+.countdown-badge{
+    display:inline-block;
+    margin-top:8px;
+    padding:5px 10px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.countdown-badge.upcoming{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.countdown-badge.tomorrow{
+    background:#fef3c7;
+    color:#b45309;
+}
+
+.countdown-badge.today{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+.countdown-badge.expired{
+    background:#e5e7eb;
+    color:#374151;
 }

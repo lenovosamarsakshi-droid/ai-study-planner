@@ -1,6 +1,5 @@
 export function getDaysLeft(date) {
   const today = new Date();
-
   const examDate = new Date(date);
 
   const difference =
@@ -11,11 +10,26 @@ export function getDaysLeft(date) {
     difference / (1000 * 60 * 60 * 24)
   );
 
-  if (days === 0) return "🚨 Today";
+  if (days < 0)
+    return {
+      text: "Exam Passed",
+      className: "expired",
+    };
 
-  if (days === 1) return "⚠ Tomorrow";
+  if (days === 0)
+    return {
+      text: "Today",
+      className: "today",
+    };
 
-  if (days < 0) return "❌ Exam Passed";
+  if (days === 1)
+    return {
+      text: "Tomorrow",
+      className: "tomorrow",
+    };
 
-  return `⏳ ${days} days left`;
+  return {
+    text: `${days} days left`,
+    className: "upcoming",
+  };
 }

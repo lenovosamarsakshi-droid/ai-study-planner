@@ -35,7 +35,7 @@ useEffect(() => {
   <div className="task-box">
     <h2>📚 Upcoming Exams</h2>
 
-    <div className="exam-card">
+<div className="exam-form">
       <input
         type="text"
         placeholder="Exam Subject"
@@ -70,7 +70,15 @@ useEffect(() => {
     })}
   </p>
 
-  <p>{getDaysLeft(exam.date)}</p>
+  {(() => {
+  const countdown = getDaysLeft(exam.date);
+
+  return (
+    <span className={`countdown-badge ${countdown.className}`}>
+      ⏳ {countdown.text}
+    </span>
+  );
+})()}
 </>
         </div>
 
