@@ -10,6 +10,8 @@ function App() {
 const [totalTasks, setTotalTasks] = useState(0);
 
 const [subjects, setSubjects] = useState(0);
+const [taskCount, setTaskCount] = useState(0);
+const [examCount, setExamCount] = useState(0);
 
   function handleProgressChange(completed, total) {
     setCompletedTasks(completed);
@@ -26,6 +28,9 @@ const [subjects, setSubjects] = useState(0);
       <DashboardCards
   subjects={subjects}
   totalTasks={totalTasks}
+  taskCount={taskCount}
+  completedTasks={completedTasks}
+  examCount={examCount}
 />
 
       <ProgressSection
@@ -36,8 +41,11 @@ const [subjects, setSubjects] = useState(0);
       <TaskSection
   onProgressChange={handleProgressChange}
   onSubjectChange={handleSubjectChange}
+  onTaskCountChange={setTaskCount}
 />
-      <ExamSection />
+      <ExamSection
+  onExamCountChange={setExamCount}
+/>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 function TaskSection({
   onProgressChange,
   onSubjectChange,
+  onTaskCountChange,
 }) {
   const [task, setTask] = useState("");
 const [subject, setSubject] = useState("Mathematics");
@@ -57,6 +58,7 @@ const [editTask, setEditTask] = useState({
     tasks.filter(task => task.completed).length;
 
   onProgressChange(completed, tasks.length);
+  onTaskCountChange(tasks.length);
 
   const uniqueSubjects =
     [...new Set(tasks.map(task => task.subject))];

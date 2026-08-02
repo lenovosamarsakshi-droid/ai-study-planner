@@ -1,7 +1,14 @@
 function DashboardCards({
   subjects,
   totalTasks,
+  taskCount,
+  completedTasks,
+  examCount,
 }) {
+  const progress =
+  totalTasks === 0
+    ? 0
+    : Math.round((completedTasks / totalTasks) * 100);
   return (
     <div className="dashboard">
       <div className="card">
@@ -11,13 +18,13 @@ function DashboardCards({
 
       <div className="card">
         <h3>✅ Tasks</h3>
-       <p>{totalTasks}</p>
+       <p>{taskCount}</p>
       </div>
 
       <div className="card">
-        <h3>⏳ Hours</h3>
-        <p>2.5</p>
-      </div>
+  <h3>📅 Exams</h3>
+  <p>{examCount}</p>
+</div>
     </div>
   );
 }

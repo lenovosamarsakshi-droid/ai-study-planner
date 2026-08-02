@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { getDaysLeft } from "../utils/dateUtils";
 
-function ExamSection() {
+function ExamSection({
+  onExamCountChange,
+}) {
 
   const [examSubject, setExamSubject] = useState("");
   const [examDate, setExamDate] = useState("");
@@ -9,6 +11,11 @@ function ExamSection() {
   const [exams, setExams] = useState(() => {
   return JSON.parse(localStorage.getItem("exams")) || [];
 });
+useEffect(() => {
+  if (onExamCountChange) {
+    onExamCountChange(exams.length);
+  }
+}, [exams]);
 const [editingIndex, setEditingIndex] = useState(null);
 
 const [editExam, setEditExam] = useState({
