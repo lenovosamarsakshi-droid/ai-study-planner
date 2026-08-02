@@ -1,14 +1,17 @@
-function DashboardCards() {
+function DashboardCards({
+  subjects,
+  totalTasks,
+}) {
   return (
     <div className="dashboard">
       <div className="card">
         <h3>📚 Subjects</h3>
-        <p>5</p>
+       <p>{subjects}</p>
       </div>
 
       <div className="card">
         <h3>✅ Tasks</h3>
-        <p>3</p>
+       <p>{totalTasks}</p>
       </div>
 
       <div className="card">

@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 
-function TaskSection({ onProgressChange }) {
+function TaskSection({
+  onProgressChange,
+  onSubjectChange,
+}) {
   const [task, setTask] = useState("");
 const [subject, setSubject] = useState("Mathematics");
 const [dueDate, setDueDate] = useState("");
@@ -42,12 +45,23 @@ const [search, setSearch] = useState("");
 });
 
   useEffect(() => {
-  const completed = tasks.filter((task) => task.completed).length;
+
+  const completed =
+    tasks.filter(task => task.completed).length;
 
   onProgressChange(completed, tasks.length);
 
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-}, [tasks, onProgressChange]);
+  const uniqueSubjects =
+    [...new Set(tasks.map(task => task.subject))];
+
+  onSubjectChange(uniqueSubjects.length);
+
+  localStorage.setItem(
+    "tasks",
+    JSON.stringify(tasks)
+  );
+
+}, [tasks, onProgressChange, onSubjectChange]);
 
   function addTask() {
     if (task.trim() === "") return;

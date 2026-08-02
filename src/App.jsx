@@ -6,19 +6,27 @@ import TaskSection from "./components/TaskSection";
 import ExamSection from "./components/ExamSection";
 
 function App() {
-  const [completedTasks, setCompletedTasks] = useState(0);
-  const [totalTasks, setTotalTasks] = useState(0);
+ const [completedTasks, setCompletedTasks] = useState(0);
+const [totalTasks, setTotalTasks] = useState(0);
+
+const [subjects, setSubjects] = useState(0);
 
   function handleProgressChange(completed, total) {
     setCompletedTasks(completed);
     setTotalTasks(total);
   }
+  function handleSubjectChange(count) {
+  setSubjects(count);
+}
 
   return (
     <div className="container">
       <Header />
 
-      <DashboardCards />
+      <DashboardCards
+  subjects={subjects}
+  totalTasks={totalTasks}
+/>
 
       <ProgressSection
         completedTasks={completedTasks}
@@ -26,8 +34,9 @@ function App() {
       />
 
       <TaskSection
-        onProgressChange={handleProgressChange}
-      />
+  onProgressChange={handleProgressChange}
+  onSubjectChange={handleSubjectChange}
+/>
       <ExamSection />
     </div>
   );
