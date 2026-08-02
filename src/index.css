@@ -1,0 +1,210 @@
+/* ---------- RESET ---------- */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background:#eef3fb;
+}
+
+/* ---------- MAIN CONTAINER ---------- */
+
+.container{
+  width:90%;
+  max-width:900px;
+  margin:40px auto;
+  background:white;
+  border-radius:20px;
+  padding:35px;
+  box-shadow:0 15px 40px rgba(0,0,0,.08);
+}
+
+/* ---------- HEADINGS ---------- */
+
+h1{
+  text-align:center;
+  color:#2563eb;
+  font-size:36px;
+  margin-bottom:8px;
+}
+
+h2{
+  text-align:center;
+  color:#666;
+  font-size:20px;
+  margin-bottom:30px;
+}
+
+h3{
+  color:#1f2937;
+  margin-bottom:18px;
+}
+
+/* ---------- DASHBOARD ---------- */
+
+.dashboard{
+  display:flex;
+  gap:18px;
+  margin-bottom:35px;
+}
+
+.card{
+  flex:1;
+  background:#2563eb;
+  color:white;
+  padding:22px;
+  border-radius:18px;
+  text-align:center;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+}
+
+.card h3{
+  color:white;
+  margin-bottom:10px;
+  font-size:18px;
+}
+
+.card p{
+  color:white;
+  font-size:30px;
+  font-weight:bold;
+}
+/* ---------- PROGRESS ---------- */
+
+.progress-box{
+  margin-bottom:35px;
+}
+
+progress{
+  width:100%;
+  height:18px;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.progress-box p{
+  margin-top:10px;
+  text-align:center;
+  color:#2563eb;
+  font-weight:bold;
+}
+
+/* ---------- TASKS ---------- */
+
+.task-box{
+  margin-top:25px;
+}
+
+.task-input{
+  display:flex;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.task-input input{
+  flex:1;
+  height:50px;
+  padding:0 16px;
+  border:1px solid #d1d5db;
+  border-radius:12px;
+  font-size:16px;
+  outline:none;
+}
+
+.task-input input:focus{
+  border-color:#2563eb;
+}
+
+.task-input button{
+  width:170px;
+  margin:0;
+}
+
+/* ---------- LIST ---------- */
+
+.task-box ul{
+  list-style:none;
+}
+
+.task-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#f8faff;
+  padding:16px;
+  border-radius:12px;
+  margin-bottom:12px;
+}
+
+.task-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.completed-task{
+  text-decoration:line-through;
+  color:gray;
+}
+
+/* ---------- BUTTONS ---------- */
+
+button{
+  border:none;
+  border-radius:12px;
+  padding:14px 20px;
+  background:#2563eb;
+  color:white;
+  cursor:pointer;
+  font-size:16px;
+  transition:.3s;
+}
+
+button:hover{
+  background:#1d4ed8;
+}
+
+.delete-btn{
+  width:auto;
+  margin:0;
+  padding:10px 14px;
+  background:#ef4444;
+}
+
+.delete-btn:hover{
+  background:#dc2626;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width:700px){
+
+.dashboard{
+  flex-direction:column;
+}
+
+.task-input{
+  flex-direction:column;
+}
+
+.task-input button{
+  width:100%;
+}
+
+.container{
+  padding:20px;
+}
+
+h1{
+  font-size:30px;
+}
+
+}
