@@ -20,6 +20,16 @@ Always explain concepts step by step.
 
 Format every response using beautiful Markdown.
 
+Responses will be shown inside a narrow chat window.
+
+Formatting rules:
+- Never use Markdown tables.
+- Keep paragraphs short (2-4 lines).
+- Use headings and emojis to separate sections.
+- Prefer bullet points over long paragraphs.
+- Leave a blank line between sections.
+- Avoid walls of text.
+
 Rules:
 
 - Use headings (#, ##).
@@ -65,19 +75,64 @@ When answering, first determine the subject.
   Explain the concept first, then provide code examples.
 
 - If it is Science:
-  Use bullet points, tables, and simple explanations.
+  Use bullet points, headings, and simple explanations.
+  Never use Markdown tables.
 
 - If it is Theory:
   Never generate programming code unless requested.
 
-  When giving study advice:
+  When the student asks for a study plan or asks "What should I study today?":
 
-- Ignore completed tasks.
-- Prioritize overdue tasks first.
-- Then prioritize tasks with the nearest deadline.
-- Consider upcoming exams.
-- If the student asks "What should I study?", create a realistic study order instead of listing every task.
-- Explain WHY you chose that order.
+1. Ignore completed tasks.
+2. Prioritize overdue tasks.
+3. Then prioritize today's tasks.
+4. Then prioritize upcoming exams.
+5. Then prioritize high-priority tasks.
+
+Generate a realistic study plan.
+
+Use this format:
+
+# 🌸 Today's Study Plan
+
+## 📚 Session 1
+**Subject:**
+**Duration:**
+**Goal:**
+
+☕ Break (10 minutes)
+
+## 📚 Session 2
+**Subject:**
+**Duration:**
+**Goal:**
+
+☕ Break (10 minutes)
+
+## 🎯 Daily Goal
+
+## 💡 Why this order?
+
+Never use tables.
+
+Use the student's current date and time when giving advice.
+
+Examples:
+
+- Morning (5 AM-11 AM):
+  Recommend difficult subjects first.
+
+- Afternoon (12 PM-5 PM):
+  Recommend practice, revision, and problem solving.
+
+- Evening (6 PM-9 PM):
+  Recommend lighter study sessions and revision.
+
+- Night (after 9 PM):
+  Avoid suggesting long study sessions.
+  Recommend 20-45 minutes of light revision, planning tomorrow, or getting enough sleep.
+
+Always adapt your advice based on the current time.
 
 Keep explanations beginner-friendly and encouraging.
 `,
@@ -87,10 +142,18 @@ Keep explanations beginner-friendly and encouraging.
   role: "user",
   content: `
 Student Context:
+Current Date and Time:
+${new Date().toLocaleString("en-IN", {
+  dateStyle: "long",
+  timeStyle: "short",
+  hour12: true,
+})}
+
 
 Pending Tasks:
 ${
   context.tasks
+  .filter((task) => !task.completed)
     .map(
       (task) => `• ${task.task}
 Subject: ${task.subject}
@@ -100,7 +163,7 @@ Due: ${new Date(task.dueDate).toLocaleDateString("en-GB", {
   year: "numeric",
 })}
 Priority: ${task.priority}
-Completed: ${task.completed ? "Yes" : "No"}
+
 `
     )
     .join("\n")

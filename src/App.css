@@ -884,3 +884,32 @@ animation: gradientMove 6s ease infinite;
     }
 
 }
+.quick-prompts{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:10px 15px;
+}
+.quick-prompts button{
+    background:#f3f4f6;
+    color:#374151;
+    border:1px solid #e5e7eb;
+    border-radius:20px;
+
+    padding:8px 14px;
+
+    font-size:13px;
+    font-weight:500;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    width:auto;
+    margin:0;
+}
+.quick-prompts button:hover{
+    background:#2563eb;
+    color:white;
+    transform:translateY(-2px);
+}

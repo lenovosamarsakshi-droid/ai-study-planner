@@ -17,10 +17,14 @@ const [question, setQuestion] = useState("");
 const [isTyping, setIsTyping] = useState(false);
 
 
-async function sendMessage() {
-  if (!question.trim()) return;
+async function sendMessage(customQuestion = "") {
 
-  const userQuestion = question;
+  const userQuestion =
+    typeof customQuestion === "string" && customQuestion.length > 0
+      ? customQuestion
+      : question;
+
+  if (!userQuestion.trim()) return;
 
   // Show the user's message immediately
   setMessages((prev) => [
@@ -38,6 +42,7 @@ async function sendMessage() {
     const reply = await askMiku(userQuestion, {
   tasks,
   exams,
+  currentTime: new Date().toLocaleString(),
 });
     setIsTyping(false);
 
@@ -150,7 +155,23 @@ async function sendMessage() {
   )}
 
 </div>
+{messages.length === 1 && (
+  <div className="quick-prompts">
 
+    <button onClick={() => sendMessage("What should I study today?")}>
+      📅 What should I study today?
+    </button>
+
+    <button onClick={() => sendMessage("Make a study plan")}>
+      📝 Make a study plan
+    </button>
+
+    <button onClick={() => sendMessage("Explain a concept")}>
+      🧠 Explain a concept
+    </button>
+
+  </div>
+)}
     <div className="miku-input">
 
       <input
@@ -166,7 +187,7 @@ async function sendMessage() {
   }}
 />
 
-      <button onClick={sendMessage}>
+      <button onClick={() => sendMessage()}>
   ➤
 </button>
 
