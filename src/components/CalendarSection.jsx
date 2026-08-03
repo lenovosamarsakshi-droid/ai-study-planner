@@ -54,7 +54,22 @@ useEffect(() => {
   }
 
   try {
-    const advice = await runAgent(tasks, exams);
+    const advice = {
+  analysis: {
+    workload: "Medium",
+    estimatedStudyHours: 2,
+    riskLevel: "Low",
+  },
+  priority: {
+    subject: "Math",
+    reason: "Upcoming task",
+  },
+  todayPlan: [],
+  warnings: [],
+  coach: {
+    motivation: "Keep going!",
+  },
+};
 
     const parsedAdvice =
       typeof advice === "string"
