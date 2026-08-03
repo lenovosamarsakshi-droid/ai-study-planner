@@ -1,11 +1,10 @@
+import { buildPlannerPrompt } from "../prompts/plannerPrompt";
 import { getStudyAdvice } from "../../services/groq";
 
-export async function createStudyPlan(studentData, analysis) {
+export async function createStudyPlan(context) {
 
-  const aiPlan = await getStudyAdvice(
-    studentData,
-    analysis
-  );
+  const prompt = buildPlannerPrompt(context);
 
-  return aiPlan;
+  return await getStudyAdvice(prompt);
+
 }

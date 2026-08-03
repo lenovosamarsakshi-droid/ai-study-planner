@@ -1,38 +1,19 @@
-import { analyzeStudent } from "./modules/analyzer";
-import { buildSchedule } from "./modules/scheduler";
-import { shouldUseAI } from "./modules/decision";
+import { buildContext } from "./modules/analyzer";
 import { createStudyPlan } from "./modules/planner";
 
 export async function runAgent(tasks, exams) {
 
-  // 👀 Observe
+  // Step 1: Observe
   const studentData = {
-    today: new Date(),
     tasks,
     exams,
   };
 
-  // 🧠 Analyze
-  const analysis = analyzeStudent(studentData);
+  // Step 2: Build Context
+  const context = buildContext(studentData);
 
-  // 📅 Build Schedule
-  const schedule = buildSchedule(studentData, analysis);
+  // Step 3: Ask the AI to reason
+  const studyPlan = await createStudyPlan(context);
 
-  // 🤔 Decide
-  const useAI = shouldUseAI(studentData, analysis);
-
-  // 📝 Final Plan
-  if (useAI) {
-    return await createStudyPlan(
-      studentData,
-      analysis,
-      schedule
-    );
-  }
-
-  return {
-    usedAI: false,
-    schedule,
-    message: "Simple schedule generated locally.",
-  };
+  return studyPlan;
 }

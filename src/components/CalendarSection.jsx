@@ -1,13 +1,13 @@
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useState, useEffect } from "react";
-import * as groqService from "../services/groq";
+import { runAgent } from "../agent/brain";
 export default function CalendarSection({
   tasks,
   exams,
 }) {
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [aiAdvice, setAiAdvice] = useState("Loading AI advice...");
+   const [aiAdvice, setAiAdvice] = useState(null);
     const selectedTasks = tasks.filter(
   task =>
     new Date(task.dueDate).toDateString() ===
@@ -42,14 +42,22 @@ const upcomingItems = [
 console.log(exams);
 useEffect(() => {
   async function loadAdvice() {
-    try {
-      const advice = await groqService.getStudyAdvice(tasks, exams);
-      setAiAdvice(advice);
-    } catch (error) {
-      console.error(error);
-      setAiAdvice("Unable to generate AI advice.");
-    }
+  try {
+    const advice = await runAgent(tasks, exams);
+    console.log(advice);
+
+    const parsedAdvice =
+      typeof advice === "string"
+        ? JSON.parse(advice)
+        : advice;
+
+    setAiAdvice(parsedAdvice);
+
+  } catch (error) {
+    console.error(error);
+    setAiAdvice(null);
   }
+}
 
   loadAdvice();
 }, [tasks, exams]);
@@ -156,53 +164,60 @@ useEffect(() => {
   </p>
 
   <div className="ai-response">
-    {aiAdvice.split("\n").map((line, index) => {
+   {aiAdvice && (
+  <>
+    {aiAdvice && (
+  <>
+    <h4 className="summary-heading">📊 Workload Analysis</h4>
 
-      if (!line.trim()) return null;
+    <p>
+      <strong>Workload:</strong> {aiAdvice.analysis.workload}
+    </p>
 
-      if (line.startsWith("Summary:")) {
-        return (
-          <div key={index}>
-            <h4 className="summary-heading">📊 Summary</h4>
-            <p>{line.replace("Summary:", "").trim()}</p>
-          </div>
-        );
-      }
+    <p>
+      <strong>Estimated Study Time:</strong>{" "}
+      {aiAdvice.analysis.estimatedStudyHours} hrs
+    </p>
 
-      if (line.startsWith("Priority:")) {
-        return (
-          <div key={index}>
-            <h4 className="priority-heading">🎯 Priority</h4>
-            <p>{line.replace("Priority:", "").trim()}</p>
-          </div>
-        );
-      }
+    <p>
+      <strong>Risk Level:</strong> {aiAdvice.analysis.riskLevel}
+    </p>
 
-      if (line.startsWith("Today's Plan:")) {
-        return (
-          <h4 key={index} className="plan-heading">
-            📅 Today's Plan
-          </h4>
-        );
-      }
+    <h4 className="priority-heading">🎯 Priority</h4>
 
-      if (line.startsWith("Motivation:")) {
-        return (
-          <div key={index}>
-            <h4 className="motivation-heading">💪 Motivation</h4>
-            <p>{line.replace("Motivation:", "").trim()}</p>
-          </div>
-        );
-      }
+    <p>
+      <strong>Subject:</strong> {aiAdvice.priority.subject}
+    </p>
 
-      if (line.trim().startsWith("•")) {
-        return (
-          <p key={index}>✅ {line.replace("•", "").trim()}</p>
-        );
-      }
+    <p>
+      <strong>Reason:</strong> {aiAdvice.priority.reason}
+    </p>
 
-      return <p key={index}>{line}</p>;
-    })}
+    <h4 className="plan-heading">📅 Today's Plan</h4>
+
+    {aiAdvice.todayPlan.map((item, index) => (
+      <p key={index}>
+        ✅ {item.subject} - {item.task} ({item.duration} min)
+      </p>
+    ))}
+
+    {aiAdvice.warnings.length > 0 && (
+      <>
+        <h4 className="priority-heading">⚠ Warnings</h4>
+
+        {aiAdvice.warnings.map((warning, index) => (
+          <p key={index}>⚠ {warning}</p>
+        ))}
+      </>
+    )}
+
+    <h4 className="motivation-heading">💪 AI Coach</h4>
+
+    <p>{aiAdvice.coach.motivation}</p>
+  </>
+)}
+  </>
+)}
   </div>
 </div>
 

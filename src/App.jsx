@@ -6,6 +6,7 @@ import ProgressSection from "./components/ProgressSection";
 import TaskSection from "./components/TaskSection";
 import ExamSection from "./components/ExamSection";
 import CalendarSection from "./components/CalendarSection";
+import GeneratePlan from "./components/GeneratePlan";
 
 function App() {
  const [completedTasks, setCompletedTasks] = useState(0);
@@ -52,6 +53,7 @@ const [exams, setExams] = useState([]);
   onExamCountChange={setExamCount}
   onExamsChange={setExams}
 />
+<GeneratePlan />
 <CalendarSection
   tasks={tasks}
   exams={exams}
