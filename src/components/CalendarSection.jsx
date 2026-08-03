@@ -176,7 +176,7 @@ useEffect(() => {
   );
 }}
 />
-{/*
+
 <div className="ai-card">
   <h3>🤖 AI Study Coach</h3>
   <p className="ai-subtitle">
@@ -184,10 +184,14 @@ useEffect(() => {
   </p>
 
   <div className="ai-response">
-   {aiAdvice && (
+   {aiAdvice &&
+ aiAdvice.analysis &&
+ aiAdvice.priority &&
+ Array.isArray(aiAdvice.todayPlan) &&
+ Array.isArray(aiAdvice.warnings) &&
+ aiAdvice.coach && (
   <>
-    {aiAdvice && (
-  <>
+   
     <h4 className="summary-heading">📊 Workload Analysis</h4>
 
     <p>
@@ -215,7 +219,7 @@ useEffect(() => {
 
     <h4 className="plan-heading">📅 Today's Plan</h4>
 
-    {aiAdvice.todayPlan.map((item, index) => (
+    {(aiAdvice.todayPlan || []).map((item, index) => (
       <p key={index}>
         ✅ {item.subject} - {item.task} ({item.duration} min)
       </p>
@@ -225,7 +229,7 @@ useEffect(() => {
       <>
         <h4 className="priority-heading">⚠ Warnings</h4>
 
-        {aiAdvice.warnings.map((warning, index) => (
+        {(aiAdvice.warnings || []).map((warning, index) => (
           <p key={index}>⚠ {warning}</p>
         ))}
       </>
@@ -233,14 +237,13 @@ useEffect(() => {
 
     <h4 className="motivation-heading">💪 AI Coach</h4>
 
-    <p>{aiAdvice.coach.motivation}</p>
-  </>
-)}
+    <p>{aiAdvice.coach?.motivation || "No advice available."}</p>
+
   </>
 )}
   </div>
 </div>
-*/}
+
 
 <div className="selected-date-card">
   <h3>📅 {selectedDate.toDateString()}</h3>
