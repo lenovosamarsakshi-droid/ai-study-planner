@@ -2,7 +2,7 @@ export function buildRoadmapPrompt(data) {
   return `
 You are an expert AI Study Planner.
 
-Create a complete study roadmap.
+Create an optimized study roadmap.
 
 Student Details:
 
@@ -17,6 +17,9 @@ ${data.deadline}
 
 Study Hours Per Day:
 ${data.hours}
+
+Available Study Days:
+${data.availableDays}
 
 Return ONLY valid JSON.
 
@@ -35,9 +38,22 @@ Return ONLY valid JSON.
 
 Rules:
 
-- Divide topics evenly until the deadline.
-- Include revision days.
-- Keep daily study time within the student's available hours.
-- Return JSON only.
+- Every topic must appear at least once.
+Do not repeat topics unless creating a revision day.
+- Create EXACTLY ${data.availableDays} study days.
+- Do NOT create more or fewer days.
+- Distribute topics logically.
+Some topics may require more time than others.
+- Include revision only if there is enough time.
+- Keep each day's study time within ${data.hours} hours.
+-Return ONLY a single valid JSON object.
+
+Do not write any explanation before or after the JSON.
+
+Do not use markdown.
+
+The first character of your response must be {
+
+The last character of your response must be }
 `;
-}
+}   

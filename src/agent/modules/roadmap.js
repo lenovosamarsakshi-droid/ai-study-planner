@@ -10,7 +10,7 @@ export async function createRoadmap(data) {
   const prompt = buildRoadmapPrompt(data);
 
   const response = await groq.chat.completions.create({
-    model: "llama-3.3-70b-versatile",
+    model: "llama-3.1-8b-instant",
     messages: [
       {
         role: "user",
@@ -23,6 +23,14 @@ export async function createRoadmap(data) {
     .replace(/```json\s*/gi, "")
     .replace(/```\s*/g, "")
     .trim();
+console.log("RAW ROADMAP RESPONSE:");
+console.log(content);
 
-  return JSON.parse(content);
+ const jsonMatch = content.match(/\{[\s\S]*\}/);
+
+if (!jsonMatch) {
+  throw new Error("No valid JSON returned");
+}
+
+return JSON.parse(jsonMatch[0]);
 }

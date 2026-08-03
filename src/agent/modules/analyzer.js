@@ -5,7 +5,9 @@ export function buildContext(studentData) {
     student: {
       tasks: studentData.tasks,
       exams: studentData.exams,
+      profile: studentData.profile,
     },
+     profile: studentData.profile,
 
     statistics: {
       totalTasks: studentData.tasks.length,

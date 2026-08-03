@@ -1,5 +1,7 @@
 import "./App.css";
 import { useState } from "react";
+import WelcomeModal from "./components/WelcomeModal";
+import { loadStudentProfile } from "./agent/memory/profile";
 import Header from "./components/Header";
 import DashboardCards from "./components/DashboardCards";
 import ProgressSection from "./components/ProgressSection";
@@ -7,6 +9,7 @@ import TaskSection from "./components/TaskSection";
 import ExamSection from "./components/ExamSection";
 import CalendarSection from "./components/CalendarSection";
 import GeneratePlan from "./components/GeneratePlan";
+import MikuTeacher from "./components/MikuTeacher";
 
 function App() {
  const [completedTasks, setCompletedTasks] = useState(0);
@@ -15,8 +18,44 @@ const [totalTasks, setTotalTasks] = useState(0);
 const [subjects, setSubjects] = useState(0);
 const [taskCount, setTaskCount] = useState(0);
 const [examCount, setExamCount] = useState(0);
-const [tasks, setTasks] = useState([]);
+const [tasks, setTasks] = useState(() => {
+  const savedTasks = localStorage.getItem("tasks");
+
+  if (savedTasks) {
+    return JSON.parse(savedTasks);
+  }
+
+  return [
+    {
+      subject: "Mathematics",
+      task: "Complete Algebra Worksheet",
+      dueDate: "2026-08-10",
+      priority: "High",
+      completed: false,
+    },
+    {
+      subject: "Chemistry",
+      task: "Revise Chemistry Chapter 3",
+      dueDate: "2026-08-12",
+      priority: "Medium",
+      completed: false,
+    },
+    {
+      subject: "English",
+      task: "Read English Literature",
+      dueDate: "2026-08-15",
+      priority: "Low",
+      completed: false,
+    },
+  ];
+});
 const [exams, setExams] = useState([]);
+const [showWelcome, setShowWelcome] = useState(
+  !loadStudentProfile().name
+);
+const [studentName, setStudentName] = useState(
+  loadStudentProfile().name
+);
 
   function handleProgressChange(completed, total) {
     setCompletedTasks(completed);
@@ -27,39 +66,59 @@ const [exams, setExams] = useState([]);
 }
 
   return (
-    <div className="container">
-      <Header />
+  <div className="container">
+    {showWelcome && (
+  <WelcomeModal
+    onComplete={(name) => {
+      setStudentName(name);
+      setShowWelcome(false);
+    }}
+  />
+)}
 
-      <DashboardCards
-  subjects={subjects}
-  totalTasks={totalTasks}
-  taskCount={taskCount}
-  completedTasks={completedTasks}
-  examCount={examCount}
-/>
+    <Header studentName={studentName} />
 
-      <ProgressSection
-        completedTasks={completedTasks}
-        totalTasks={totalTasks}
-      />
+    <DashboardCards
+      subjects={subjects}
+      totalTasks={totalTasks}
+      taskCount={taskCount}
+      completedTasks={completedTasks}
+      examCount={examCount}
+    />
 
-      <TaskSection
+    <ProgressSection
+      completedTasks={completedTasks}
+      totalTasks={totalTasks}
+    />
+
+    <TaskSection
+  tasks={tasks}
+  setTasks={setTasks}
   onProgressChange={handleProgressChange}
   onSubjectChange={handleSubjectChange}
   onTaskCountChange={setTaskCount}
-  onTasksChange={setTasks}
 />
-      <ExamSection
-  onExamCountChange={setExamCount}
-  onExamsChange={setExams}
-/>
-<GeneratePlan />
-<CalendarSection
+
+    <ExamSection
+      onExamCountChange={setExamCount}
+      onExamsChange={setExams}
+    />
+
+    <GeneratePlan
+      tasks={tasks}
+      setTasks={setTasks}
+    />
+
+    <CalendarSection
+      tasks={tasks}
+      exams={exams}
+    />
+    <MikuTeacher
   tasks={tasks}
   exams={exams}
 />
-    </div>
-  );
+  </div>
+);
 }
 
 export default App;

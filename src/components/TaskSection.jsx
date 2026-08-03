@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { updateStudentProfile } from "../agent/memory/updateProfile";
 
 function TaskSection({
+  tasks,
+  setTasks,
   onProgressChange,
   onSubjectChange,
   onTaskCountChange,
-  onTasksChange,
 }) {
   const [task, setTask] = useState("");
 const [subject, setSubject] = useState("Mathematics");
@@ -14,37 +16,6 @@ const [filterSubject, setFilterSubject] = useState("All");
 const [filterPriority, setFilterPriority] = useState("All");
 const [search, setSearch] = useState("");
 
- const [tasks, setTasks] = useState(() => {
-  const savedTasks = localStorage.getItem("tasks");
-
-  if (savedTasks) {
-    return JSON.parse(savedTasks);
-  }
-
- return [
-  {
-    subject: "Mathematics",
-    task: "Complete Algebra Worksheet",
-    dueDate: "2026-08-10",
-    priority: "High",
-    completed: false,
-  },
-  {
-    subject: "Chemistry",
-    task: "Revise Chemistry Chapter 3",
-    dueDate: "2026-08-12",
-    priority: "Medium",
-    completed: false,
-  },
-  {
-    subject: "English",
-    task: "Read English Literature",
-    dueDate: "2026-08-15",
-    priority: "Low",
-    completed: false,
-  },
-];
-});
 const [editingIndex, setEditingIndex] = useState(null);
 
 const [editTask, setEditTask] = useState({
@@ -65,14 +36,12 @@ const [editTask, setEditTask] = useState({
     [...new Set(tasks.map(task => task.subject))];
 
   onSubjectChange(uniqueSubjects.length);
-  if (onTasksChange) {
-  onTasksChange(tasks);
-}
-
+ 
   localStorage.setItem(
     "tasks",
     JSON.stringify(tasks)
   );
+  updateStudentProfile(tasks);
 
 }, [tasks, onProgressChange, onSubjectChange]);
 
@@ -288,9 +257,9 @@ onChange={(e) =>
       })}
     </span>
 
-    <span className={`priority ${item.priority.toLowerCase()}`}>
-      {item.priority}
-    </span>
+    <span className={`priority ${(item.priority ?? "Medium").toLowerCase()}`}>
+  {item.priority ?? "Medium"}
+</span>
   </div>
 
 </div>
