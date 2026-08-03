@@ -154,6 +154,7 @@ useEffect(() => {
     ))
   )}
 </div>
+{/*
       <Calendar
       onChange={setSelectedDate}
  tileContent={({ date, view }) => {
@@ -191,7 +192,7 @@ useEffect(() => {
   );
 }}
 />
-
+*/}
 <div className="ai-card">
   <h3>🤖 AI Study Coach</h3>
   <p className="ai-subtitle">
