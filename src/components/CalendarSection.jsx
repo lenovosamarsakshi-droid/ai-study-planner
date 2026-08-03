@@ -176,7 +176,7 @@ useEffect(() => {
   );
 }}
 />
-
+{/*
 <div className="ai-card">
   <h3>🤖 AI Study Coach</h3>
   <p className="ai-subtitle">
@@ -240,6 +240,7 @@ useEffect(() => {
 )}
   </div>
 </div>
+*/}
 
 <div className="selected-date-card">
   <h3>📅 {selectedDate.toDateString()}</h3>
