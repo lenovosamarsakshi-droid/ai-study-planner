@@ -913,3 +913,11 @@ animation: gradientMove 6s ease infinite;
     color:white;
     transform:translateY(-2px);
 }
+.app-tagline{
+    text-align:center;
+    color:#6b7280;
+    font-size:15px;
+    margin-top:-10px;
+    margin-bottom:28px;
+    font-weight:500;
+}

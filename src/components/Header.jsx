@@ -1,7 +1,16 @@
+import logo from "/logo.png";
+
 function Header({ studentName }) {
   return (
     <>
-      <h1>📚 Study Planner AI</h1>
+      <h1 className="app-title">
+        <img src={logo} alt="StudyBloom Logo" />
+        StudyBloom
+      </h1>
+
+      <p className="app-tagline">
+        Plan • Learn • Bloom
+      </p>
 
       <h2>
         {studentName
