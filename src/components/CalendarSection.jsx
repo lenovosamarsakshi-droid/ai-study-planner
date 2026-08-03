@@ -42,14 +42,34 @@ const upcomingItems = [
 console.log(exams);
 useEffect(() => {
   async function loadAdvice() {
+
+  const today = new Date().toDateString();
+
+  const savedDate = localStorage.getItem("adviceDate");
+  const savedAdvice = localStorage.getItem("aiAdvice");
+
+  if (savedDate === today && savedAdvice) {
+    setAiAdvice(JSON.parse(savedAdvice));
+    return;
+  }
+
   try {
     const advice = await runAgent(tasks, exams);
-    console.log(advice);
 
     const parsedAdvice =
       typeof advice === "string"
         ? JSON.parse(advice)
         : advice;
+
+    localStorage.setItem(
+      "aiAdvice",
+      JSON.stringify(parsedAdvice)
+    );
+
+    localStorage.setItem(
+      "adviceDate",
+      today
+    );
 
     setAiAdvice(parsedAdvice);
 
@@ -60,7 +80,7 @@ useEffect(() => {
 }
 
   loadAdvice();
-}, [tasks, exams]);
+}, []);
   return (
     <div className="task-box">
       <h2>📅 Study Calendar</h2>

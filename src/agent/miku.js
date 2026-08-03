@@ -1,4 +1,5 @@
 import Groq from "groq-sdk";
+import { loadMemory } from "../utils/mikuMemory";
 
 const groq = new Groq({
   apiKey: import.meta.env.VITE_GROQ_API_KEY,
@@ -6,6 +7,7 @@ const groq = new Groq({
 });
 
 export async function askMiku(question, context) {
+    const memory = loadMemory();
 
   const response = await groq.chat.completions.create({
     model: "llama-3.1-8b-instant",
@@ -142,6 +144,10 @@ Keep explanations beginner-friendly and encouraging.
   role: "user",
   content: `
 Student Context:
+Previous Learning Memory:
+${memory.length > 0 ? memory.join("\n") : "No previous memory."}
+
+
 Current Date and Time:
 ${new Date().toLocaleString("en-IN", {
   dateStyle: "long",

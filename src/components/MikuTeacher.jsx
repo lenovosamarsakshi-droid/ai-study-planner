@@ -1,5 +1,7 @@
 import { useState } from "react"; 
 import { askMiku } from "../agent/miku";
+import { extractMemory } from "../agent/memoryExtractor";
+import { addMemory } from "../utils/mikuMemory";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -23,6 +25,34 @@ async function sendMessage(customQuestion = "") {
     typeof customQuestion === "string" && customQuestion.length > 0
       ? customQuestion
       : question;
+      const lowerQuestion = userQuestion.toLowerCase();
+
+if (lowerQuestion.includes("i don't understand") ||
+    lowerQuestion.includes("i dont understand") ||
+    lowerQuestion.includes("confused")) {
+
+  addMemory(`Student struggles with: ${userQuestion}`);
+}
+
+if (lowerQuestion.includes("exam")) {
+  addMemory(`Student is preparing for an exam.`);
+}
+
+if (lowerQuestion.includes("rest api")) {
+  addMemory("Student is learning REST API.");
+}
+
+if (lowerQuestion.includes("sql")) {
+  addMemory("Student is learning SQL.");
+}
+
+if (lowerQuestion.includes("python")) {
+  addMemory("Student is learning Python.");
+}
+
+if (lowerQuestion.includes("java")) {
+  addMemory("Student is learning Java.");
+}
 
   if (!userQuestion.trim()) return;
 
@@ -36,6 +66,15 @@ async function sendMessage(customQuestion = "") {
   ]);
 
   setQuestion("");
+
+  const memory = await extractMemory(userQuestion);
+
+if (
+  memory &&
+  memory.toLowerCase() !== "none"
+) {
+  addMemory(memory);
+}
 
   try {
     setIsTyping(true);
