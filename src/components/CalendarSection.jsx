@@ -54,22 +54,7 @@ useEffect(() => {
   }
 
   try {
-    const advice = {
-  analysis: {
-    workload: "Medium",
-    estimatedStudyHours: 2,
-    riskLevel: "Low",
-  },
-  priority: {
-    subject: "Math",
-    reason: "Upcoming task",
-  },
-  todayPlan: [],
-  warnings: [],
-  coach: {
-    motivation: "Keep going!",
-  },
-};
+    const advice = await runAgent(tasks, exams);
 
     const parsedAdvice =
       typeof advice === "string"
@@ -154,7 +139,7 @@ useEffect(() => {
     ))
   )}
 </div>
-{/*
+
       <Calendar
       onChange={setSelectedDate}
  tileContent={({ date, view }) => {
@@ -192,7 +177,6 @@ useEffect(() => {
   );
 }}
 />
-*/}
 <div className="ai-card">
   <h3>🤖 AI Study Coach</h3>
   <p className="ai-subtitle">
