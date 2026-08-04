@@ -108,13 +108,20 @@ if (
 
   return (
     <>
-      {/* Floating Button */}
-      <button
-        className="miku-floating-btn"
-        onClick={() => setOpen(true)}
-      >
-        🌸
-      </button>
+  <div className="miku-floating-container">
+
+    <button
+      className="miku-floating-btn"
+      onClick={() => setOpen(true)}
+    >
+      🌸
+    </button>
+
+    <div className="miku-label">
+      Ask Miku
+    </div>
+
+  </div>
 
       {/* Chat Window */}
 {open && (
@@ -234,6 +241,8 @@ if (
 
   </div>
 )}
+  
+
     </>
   );
 }

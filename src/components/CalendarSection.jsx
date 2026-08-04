@@ -40,13 +40,13 @@ const upcomingItems = [
 .slice(0, 5);
     console.log(tasks);
 console.log(exams);
-useEffect(() => {
-  async function loadAdvice() {
+async function loadAdvice() {
 
   const today = new Date().toDateString();
 
   const savedDate = localStorage.getItem("adviceDate");
   const savedAdvice = localStorage.getItem("aiAdvice");
+  
 
   if (savedDate === today && savedAdvice) {
     setAiAdvice(JSON.parse(savedAdvice));
@@ -78,6 +78,8 @@ useEffect(() => {
     setAiAdvice(null);
   }
 }
+useEffect(() => {
+  
 
   loadAdvice();
 }, []);
@@ -178,7 +180,20 @@ useEffect(() => {
 }}
 />
 <div className="ai-card">
-  <h3>🤖 AI Study Coach</h3>
+ <div className="ai-header">
+  <h2>🤖 AI Study Coach</h2>
+
+  <button
+    className="refresh-ai-btn"
+    onClick={() => {
+      localStorage.removeItem("aiAdvice");
+      localStorage.removeItem("adviceDate");
+      loadAdvice();
+    }}
+  >
+    🔄 Refresh
+  </button>
+</div>
   <p className="ai-subtitle">
     Personalized recommendations based on your tasks and exams
   </p>

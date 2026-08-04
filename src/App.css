@@ -469,9 +469,7 @@
 /* Floating Button */
 
 .miku-floating-btn{
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
+    
 
     width: 60px;
     height: 60px;
@@ -500,11 +498,30 @@ animation: gradientMove 6s ease infinite;
 
     box-shadow: 0 8px 25px rgba(0,0,0,.25);
 
-    z-index: 9999;
+  
 
     transition: .25s;
 }
+.miku-floating-container{
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    z-index: 9999;
+}
+
+.miku-label{
+    margin-top: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c5cff;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(255,255,255,.7);
+}
 .miku-floating-btn:hover{
     transform:scale(1.08) rotate(8deg);
 }
@@ -920,4 +937,26 @@ animation: gradientMove 6s ease infinite;
     margin-top:-10px;
     margin-bottom:28px;
     font-weight:500;
+}
+.ai-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:16px;
+}
+
+.refresh-ai-btn{
+    border:none;
+    background:#2563eb;
+    color:white;
+    padding:8px 16px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.2s;
+}
+
+.refresh-ai-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-1px);
 }
