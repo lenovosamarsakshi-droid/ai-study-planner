@@ -25,29 +25,7 @@ const [tasks, setTasks] = useState(() => {
     return JSON.parse(savedTasks);
   }
 
-  return [
-    {
-      subject: "Mathematics",
-      task: "Complete Algebra Worksheet",
-      dueDate: "2026-08-10",
-      priority: "High",
-      completed: false,
-    },
-    {
-      subject: "Chemistry",
-      task: "Revise Chemistry Chapter 3",
-      dueDate: "2026-08-12",
-      priority: "Medium",
-      completed: false,
-    },
-    {
-      subject: "English",
-      task: "Read English Literature",
-      dueDate: "2026-08-15",
-      priority: "Low",
-      completed: false,
-    },
-  ];
+  return [];
 });
 const [exams, setExams] = useState([]);
 const [showWelcome, setShowWelcome] = useState(
